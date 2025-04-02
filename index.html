@@ -1,42 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lovebig</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lovebig - Choose Your Snail</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Lovebig</h1>
-    <p>Spread love and joy through play</p>
+    <h1>💖 Lovebig</h1>
+    <p>Choose your snail and start your journey!</p>
   </header>
 
-<button onclick="toggleMusic()">🎵</button>
-  <main>
-    <section id="flower-garden">
-      <h2>Pick a Flower</h2>
-      <div class="flower" onclick="revealMessage(this)">🌸</div>
-      <div class="flower" onclick="revealMessage(this)">🌼</div>
-      <div class="flower" onclick="revealMessage(this)">🌻</div>
-    </section>
-
-    <section id="snail-trail">
-      <h2>Follow the Snail Trail</h2>
-      <button onclick="getRandomQuote()">Follow the Snail</button>
-      <p id="snail-message"></p>
-    </section>
+  <main id="character-select">
+    <div class="snail-option" data-snail="pink">🐌 Pink Snail</div>
+    <div class="snail-option" data-snail="blue">🐌 Blue Snail</div>
+    <div class="snail-option" data-snail="green">🐌 Green Snail</div>
+    <div class="snail-option" data-snail="yellow">🐌 Yellow Snail</div>
   </main>
 
-  <footer>
-    <p>Made with love at Lovebig</p>
-  </footer>
+  <button onclick="toggleMusic()" class="music-toggle">🎵</button>
+
+  <audio id="background-music" loop>
+    <source src="music/sakura-breeze.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
 
   <script src="script.js"></script>
-<audio id="background-music" loop>
-  <source src="path-to-your-audio-file.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
 </body>
 </html>
-
