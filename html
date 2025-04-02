@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lovebig</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Lovebig</h1>
+    <p>Spread love and joy through play</p>
+  </header>
+
+  <main>
+    <section id="flower-garden">
+      <h2>Pick a Flower</h2>
+      <div class="flower" onclick="revealMessage(this)">🌸</div>
+      <div class="flower" onclick="revealMessage(this)">🌼</div>
+      <div class="flower" onclick="revealMessage(this)">🌻</div>
+    </section>
+
+    <section id="snail-trail">
+      <h2>Follow the Snail Trail</h2>
+      <button onclick="getRandomQuote()">Follow the Snail</button>
+      <p id="snail-message"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with love at Lovebig</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
