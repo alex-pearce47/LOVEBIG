@@ -1,53 +1,107 @@
+/* General Page Style */
 body {
+  margin: 0;
   font-family: 'Comic Sans MS', cursive, sans-serif;
-  background: linear-gradient(to bottom right, #fbe8a6, #f4976c, #303c6c);
-  color: #fff;
+  background: linear-gradient(to bottom, #ffe8f0, #e0f7fa);
+  color: #333;
   text-align: center;
-  padding: 20px;
+  overflow: hidden;
 }
 
+/* Header */
 header {
-  margin-bottom: 40px;
+  margin: 20px 0;
 }
 
 h1 {
-  font-size: 3em;
-  color: #fff799;
+  font-size: 2.5em;
+  color: #ff69b4;
 }
 
-.flower {
-  font-size: 3em;
-  margin: 10px;
+p {
+  font-size: 1.2em;
+  color: #444;
+}
+
+/* Character Select */
+#character-select {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.snail-option {
+  padding: 15px 25px;
+  border-radius: 10px;
+  background: #fcddec;
   cursor: pointer;
-  display: inline-block;
+  font-size: 1.2em;
   transition: transform 0.2s;
 }
 
-.flower:hover {
-  transform: scale(1.2);
+.snail-option:hover {
+  transform: scale(1.1);
+  background: #ffe3f0;
 }
 
-#snail-trail button {
-  background: #fff799;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1em;
-  cursor: pointer;
-  border-radius: 10px;
-  color: #303c6c;
+/* Game Screen */
+#garden {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  background: #dfffd9;
+  border: 5px solid #a8e6cf;
+  overflow: hidden;
+  margin-top: 20px;
 }
+
+#snail {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  font-size: 2em;
+}
+
+/* Snail colors */
+.pink::before  { content: "🐌"; color: pink; }
+.blue::before  { content: "🐌"; color: #add8e6; }
+.green::before { content: "🐌"; color: #a0d995; }
+.yellow::before{ content: "🐌"; color: #fdfd96; }
+
+/* Flowers */
+.flower {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  font-size: 1.8em;
+  animation: sway 3s ease-in-out infinite alternate;
+}
+.flower::before {
+  content: "💗";
+}
+
+/* Swaying animation */
+@keyframes sway {
+  0% { transform: translateX(0px); }
+  100% { transform: translateX(10px); }
+}
+
+/* Message box */
+#message-box {
+  margin-top: 20px;
+  font-size: 1.5em;
+  color: #ff1493;
+}
+
+/* Music Button */
 .music-toggle {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 15px;
+  right: 15px;
   font-size: 1.5em;
   background: none;
   border: none;
   cursor: pointer;
   z-index: 999;
-}
-
-footer {
-  margin-top: 50px;
-  font-size: 0.9em;
 }
