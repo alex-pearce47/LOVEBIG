@@ -4,6 +4,7 @@ const messageBox = document.getElementById("message-box");
 const bug = localStorage.getItem("selectedBug") || "ladybug";
 let posX = 0;
 let posY = 0;
+const gridSize = 10;
 
 const messages = [
   "You're blooming with kindness 🌷",
@@ -13,43 +14,85 @@ const messages = [
   "Your joy is a gift to the world 🌼"
 ];
 
-const gardenRows = 10;
-const gardenCols = 10;
+const finishMessage = "You collected all the love! 💖✨ You’re amazing.";
 
-// Create garden grid
-for (let y = 0; y < gardenRows; y++) {
-  for (let x = 0; x < gardenCols; x++) {
+const gardenGrid = [];
+let totalHearts = 0;
+
+// Initialize garden grid
+for (let y = 0; y < gridSize; y++) {
+  gardenGrid[y] = [];
+  for (let x = 0; x < gridSize; x++) {
     const tile = document.createElement("div");
     tile.classList.add("tile");
     tile.dataset.x = x;
     tile.dataset.y = y;
 
-    // Add flowers as background
-    if (Math.random() < 0.3) tile.classList.add("flower");
+    const cell = {
+      element: tile,
+      isFlower: false,
+      hasHeart: false,
+    };
 
-    // Add hearts to collect
-    if (Math.random() < 0.1) {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      tile.appendChild(heart);
+    // Randomly add flowers (obstacles)
+    if (Math.random() < 0.2 && !(x === 0 && y === 0)) {
+      tile.classList.add("flower");
+      cell.isFlower = true;
     }
 
+    // Randomly add hearts (only if it's not a flower)
+    if (!cell.isFlower && Math.random() < 0.1 && !(x === 0 && y === 0)) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "💗";
+      tile.appendChild(heart);
+      cell.hasHeart = true;
+      totalHearts++;
+    }
+
+    gardenGrid[y][x] = cell;
     garden.appendChild(tile);
   }
 }
 
-// Place bug character
+// Draw the bug character
 function drawBug() {
-  document.querySelectorAll(".tile").forEach(tile => {
-    tile.classList.remove("bug");
-    tile.innerHTML = tile.querySelector(".heart") ? "💗" : "";
-  });
+  // Clear all bugs from tiles
+  garden.querySelectorAll(".tile").forEach(tile => tile.innerHTML = "");
 
-  const currentTile = document.querySelector(`.tile[data-x="${posX}"][data-y="${posY}"]`);
-  currentTile.classList.add("bug");
-  currentTile.innerHTML = getBugEmoji();
+  const cell = gardenGrid[posY][posX];
+  const bugEmoji = getBugEmoji();
+
+  const bugIcon = document.createElement("div");
+  bugIcon.innerText = bugEmoji;
+  bugIcon.classList.add("bug-icon");
+
+  cell.element.appendChild(bugIcon);
+
+  // If heart exists here
+  if (cell.hasHeart) {
+    cell.hasHeart = false;
+    totalHearts--;
+
+    const message = messages[Math.floor(Math.random() * messages.length)];
+    messageBox.innerText = message;
+    messageBox.style.opacity = 1;
+
+    setTimeout(() => {
+      messageBox.style.opacity = 0;
+    }, 3000);
+  }
+
+  // If all hearts are collected
+  if (totalHearts === 0) {
+    setTimeout(() => {
+      messageBox.innerText = finishMessage;
+      messageBox.style.opacity = 1;
+    }, 500);
+  }
 }
 
+// Get bug emoji
 function getBugEmoji() {
   switch (bug) {
     case "ladybug": return "🐞";
@@ -60,31 +103,23 @@ function getBugEmoji() {
   }
 }
 
-function checkHeart() {
-  const tile = document.querySelector(`.tile[data-x="${posX}"][data-y="${posY}"]`);
-  if (tile && tile.querySelector(".heart")) {
-    tile.querySelector(".heart").remove();
-    const message = messages[Math.floor(Math.random() * messages.length)];
-    messageBox.innerText = message;
-    messageBox.style.opacity = 1;
-    setTimeout(() => {
-      messageBox.style.opacity = 0;
-    }, 3000);
-  }
-}
-
+// Handle movement
 function move(dx, dy) {
   const newX = posX + dx;
   const newY = posY + dy;
 
-  if (newX >= 0 && newX < gardenCols && newY >= 0 && newY < gardenRows) {
+  if (
+    newX >= 0 && newX < gridSize &&
+    newY >= 0 && newY < gridSize &&
+    !gardenGrid[newY][newX].isFlower
+  ) {
     posX = newX;
     posY = newY;
     drawBug();
-    checkHeart();
   }
 }
 
+// Arrow keys
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowUp") move(0, -1);
   if (e.key === "ArrowDown") move(0, 1);
@@ -92,7 +127,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") move(1, 0);
 });
 
-// Touch controls (basic swipe)
+// Touch swipe
 let startX, startY;
 document.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
@@ -106,7 +141,7 @@ document.addEventListener("touchend", (e) => {
 });
 
 // Music toggle
-const music = document.getElementById('background-music');
+const music = document.getElementById("background-music");
 function toggleMusic() {
   if (music.paused) music.play();
   else music.pause();
