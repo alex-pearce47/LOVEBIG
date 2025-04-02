@@ -1,0 +1,43 @@
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(to bottom right, #fbe8a6, #f4976c, #303c6c);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+header {
+  margin-bottom: 40px;
+}
+
+h1 {
+  font-size: 3em;
+  color: #fff799;
+}
+
+.flower {
+  font-size: 3em;
+  margin: 10px;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.flower:hover {
+  transform: scale(1.2);
+}
+
+#snail-trail button {
+  background: #fff799;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 10px;
+  color: #303c6c;
+}
+
+footer {
+  margin-top: 50px;
+  font-size: 0.9em;
+}
