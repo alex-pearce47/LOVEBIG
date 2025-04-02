@@ -1,21 +1,18 @@
-const messages = [
-  "You are blooming beautifully.",
-  "Your smile lights up the world.",
-  "You are exactly where you need to be.",
-  "Kindness is your superpower!",
-  "You are loved, always."
-];
+// Character selection
+const snailOptions = document.querySelectorAll(".snail-option");
 
-function revealMessage(element) {
-  const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-  element.innerText = randomMessage;
-  element.style.fontSize = "1.2em";
+if (snailOptions.length) {
+  snailOptions.forEach(option => {
+    option.addEventListener("click", () => {
+      const snail = option.getAttribute("data-snail");
+      localStorage.setItem("selectedSnail", snail);
+      alert(`You're as bright as the morning dew, little ${snail} snail!`);
+      window.location.href = "game.html";
+    });
+  });
 }
 
-function getRandomQuote() {
-  const quote = messages[Math.floor(Math.random() * messages.length)];
-  document.getElementById("snail-message").innerText = quote;
-}
+// Music toggle
 const music = document.getElementById('background-music');
 
 function toggleMusic() {
