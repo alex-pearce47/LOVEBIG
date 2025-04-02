@@ -1,22 +1,18 @@
-// Character selection for index.html
-const snailOptions = document.querySelectorAll(".snail-option");
+const bugOptions = document.querySelectorAll(".bug-option");
 
-if (snailOptions.length) {
-  snailOptions.forEach(option => {
+if (bugOptions.length) {
+  bugOptions.forEach(option => {
     option.addEventListener("click", () => {
-      const snail = option.getAttribute("data-snail");
-      localStorage.setItem("selectedSnail", snail);
+      const bug = option.getAttribute("data-bug");
+      localStorage.setItem("selectedBug", bug);
       window.location.href = "game.html";
     });
   });
 }
 
-// Music toggle (shared by both index and game)
+// Music toggle
 const music = document.getElementById('background-music');
 function toggleMusic() {
-  if (music.paused) {
-    music.play();
-  } else {
-    music.pause();
-  }
+  if (music.paused) music.play();
+  else music.pause();
 }
